@@ -43,6 +43,11 @@ export class MapComponent implements OnInit {
     this.saveInStorage();
   }
 
+  public removeMarker(index: number) {
+    this.markers.splice(index, 1);
+    this.saveInStorage();
+  }
+
   private saveInStorage() {
     console.log(this.markers);
     localStorage.setItem("markers", JSON.stringify(this.markers));
