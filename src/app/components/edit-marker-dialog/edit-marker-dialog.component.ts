@@ -17,6 +17,10 @@ export class EditMarkerDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public save(): void {
+    this.dialogRef.close(this.data);
+  }
+
   public close(): void {
     this.dialogRef.close();
   }

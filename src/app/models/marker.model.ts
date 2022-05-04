@@ -2,7 +2,7 @@ export class MarkerModel {
   private _lat!: number;
   private _lng!: number;
   private _title: string = "Título";
-  private _description: string = "Descipción";
+  private _description: string = "Descripción ";
 
   constructor(lat: number, lng: number) {
     this._lat = lat;

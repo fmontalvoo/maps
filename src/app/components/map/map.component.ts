@@ -59,7 +59,14 @@ export class MapComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      if (result) {
+        console.log(result);
+        marker = result;
+        this.saveInStorage();
+        this.snackBar.open("Marcador actualizado", "Cerrar", {
+          duration: this.duration,
+        });
+      }
     });
   }
 
