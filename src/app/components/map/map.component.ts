@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
+import { MatSnackBar } from "@angular/material/snack-bar";
+
 import { MarkerModel } from "src/app/models/marker.model";
 
 @Component({
@@ -13,7 +15,9 @@ export class MapComponent implements OnInit {
 
   public markers: MarkerModel[] = [];
 
-  constructor() {
+  private duration: number = 2000;
+
+  constructor(private snackBar: MatSnackBar) {
     const markersInStoreage = localStorage.getItem("markers");
     if (markersInStoreage) {
       const items = JSON.parse(markersInStoreage);
@@ -41,11 +45,17 @@ export class MapComponent implements OnInit {
     const { lat, lng } = event.coords;
     this.markers.push(new MarkerModel(lat, lng));
     this.saveInStorage();
+    this.snackBar.open("Marcador agregado", "Cerrar", {
+      duration: this.duration,
+    });
   }
 
   public removeMarker(index: number) {
     this.markers.splice(index, 1);
     this.saveInStorage();
+    this.snackBar.open("Marcador eliminado", "Cerrar", {
+      duration: this.duration,
+    });
   }
 
   private saveInStorage() {
