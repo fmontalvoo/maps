@@ -5,9 +5,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 import { MaterialModule } from "./material.module";
+import { MapComponent } from "./components/map/map.component";
 
+import { AgmCoreModule } from "@agm/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { MapComponent } from './components/map/map.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCJyqy2ThK0aYpot6cadjYngEzClGrta-U",
+    }),
   ],
   declarations: [
     AppComponent,
