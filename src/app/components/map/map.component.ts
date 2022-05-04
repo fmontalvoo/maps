@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 
 import { MarkerModel } from "src/app/models/marker.model";
+import { EditMarkerDialogComponent } from "../edit-marker-dialog/edit-marker-dialog.component";
 
 @Component({
   selector: "app-map",
@@ -17,7 +19,7 @@ export class MapComponent implements OnInit {
 
   private duration: number = 2000;
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
     const markersInStoreage = localStorage.getItem("markers");
     if (markersInStoreage) {
       const items = JSON.parse(markersInStoreage);
@@ -50,7 +52,18 @@ export class MapComponent implements OnInit {
     });
   }
 
-  public removeMarker(index: number) {
+  public editMarker(marker: MarkerModel): void {
+    const dialogRef = this.dialog.open(EditMarkerDialogComponent, {
+      width: "250px",
+      data: marker,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  public removeMarker(index: number): void {
     this.markers.splice(index, 1);
     this.saveInStorage();
     this.snackBar.open("Marcador eliminado", "Cerrar", {
@@ -58,7 +71,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private saveInStorage() {
+  private saveInStorage(): void {
     console.log(this.markers);
     localStorage.setItem("markers", JSON.stringify(this.markers));
   }
